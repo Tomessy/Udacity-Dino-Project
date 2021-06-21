@@ -34,18 +34,13 @@
         }
     
         return function(){
-            console.log("YEAH");
             const name = getIdValue("name");
             const feet = getIdValue("feet");
             const inches = getIdValue("inches");
             const weight = getIdValue("weight");
             const diet = getIdValue("diet");
             const totalHeight =+ inches + (feet*12);
-            console.log(name);
-            console.log(totalHeight);
-            console.log(weight);
-            console.log(diet);
-        
+
             human.name = name;
             human.totalHeight = totalHeight;
             human.weight = weight;
@@ -100,12 +95,9 @@
             function findFact() {
                 if(dino.species === "Pigeon"){
                     return dino.fact;
-                } 
-                console.log(dino.height);
-                console.log("human height = " + human.totalHeight)
-                console.log(dino.height > human.height);
+                }
 
-                const number = Math.floor(Math.random() * 3);
+                const number = Math.floor(Math.random() * 6);
                 switch (number) {
                     case 0:
                         return dino.fact;
@@ -115,6 +107,17 @@
                         return heightCompare(dino.height, dino.species);
                     case 3:
                         return dietCompare(dino.diet, dino.species);
+                    case 4: 
+                        return `The ${dino.species} weighs ${dino.weight} pounds!`;
+                    case 5:
+                        const feet = Math.floor(dino.height / 12);
+                        const inches = dino.height % 12;
+                        if (inches > 0) {
+                            return `The ${dino.species} is ${feet} feet and ${inches} inches tall!`;
+                        } else {
+                            return `The ${dino.species} is ${feet} feet tall!`;
+                        }
+
                     default:
                         break;
                 }
@@ -130,7 +133,6 @@
             const img = document.createElement("img");
 
             species.textContent = dino.species;
-            console.log(findFact())
             fact.textContent = findFact();
             img.src = `./images/${dino.species}.png`
 
