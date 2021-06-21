@@ -32,35 +32,69 @@
         }
     
         return function(){
-        console.log("YEAH");
-        const name = getIdValue("name");
-        const feet = getIdValue("feet");
-        const inches = getIdValue("inches");
-        const weight = getIdValue("weight");
-        const diet = getIdValue("diet");
-        const totalHeight =+ inches + (feet*12);
-        console.log(name);
-        console.log(totalHeight);
-        console.log(weight);
-        console.log(diet);
+            console.log("YEAH");
+            const name = getIdValue("name");
+            const feet = getIdValue("feet");
+            const inches = getIdValue("inches");
+            const weight = getIdValue("weight");
+            const diet = getIdValue("diet");
+            const totalHeight =+ inches + (feet*12);
+            console.log(name);
+            console.log(totalHeight);
+            console.log(weight);
+            console.log(diet);
+        
+            human.name = name;
+            human.totalHeight = totalHeight;
+            human.weight = weight;
+            human.diet = diet;
 
+
+                
+        // Create Dino Compare Method 1
+        // NOTE: Weight in JSON file is in lbs, height in inches. 
+        
+            function weightCompare(DinoWeight, HumanWeight, DinoName){
+                if(DinoWeight < HumanWeight){
+                    return `${DinoName} weighs less then ${name}`
+                } else if( DinoWeight > HumanWeight){
+                    return `${name} weighs less then ${DinoName}`
+                } else {
+                    return `${name} weighs the same as a(n) ${DinoName}`
+                }
+            }
+
+
+        // Create Dino Compare Method 2
+        // NOTE: Weight in JSON file is in lbs, height in inches.
+
+            function heightCompare(DinoHeight, HumanHeight, DinoName){
+                if(DinoHeight < HumanHeight){
+                    return `${DinoName} is shorter then ${name}`
+                } else if(DinoHeight > HumanHeight){
+                    return `${name} is shorter then ${DinoName}`
+                } else {
+                    return `${name} and ${DinoName} are the same height`
+                }
+            }
+
+                    
+        // Create Dino Compare Method 3
+        // NOTE: Weight in JSON file is in lbs, height in inches.
+    
+
+            function dietCompare(DinoDiet, HumanDiet, DinoName){
+                if(DinoDiet === HumanDiet){
+                    return `${name} and the ${DinoName} have the same diet`
+                } else {
+                    return `${name} is a(n) ${HumanDiet} and the ${DinoName} is a(n) ${DinoDiet}`
+                }
+            }
         }
         
     })());
     
-    
-    
-        // Create Dino Compare Method 1
-        // NOTE: Weight in JSON file is in lbs, height in inches. 
-    
-        
-        // Create Dino Compare Method 2
-        // NOTE: Weight in JSON file is in lbs, height in inches.
-    
-        
-        // Create Dino Compare Method 3
-        // NOTE: Weight in JSON file is in lbs, height in inches.
-    
+
     
         // Generate Tiles for each Dino in Array
       
