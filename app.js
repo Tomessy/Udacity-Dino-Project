@@ -27,10 +27,23 @@
     const btn = document.getElementById("btn");
     
     btn.addEventListener("click", (function(){
-        console.log("YEAH BRO");
+        function getIdValue(id) {
+            return document.getElementById(id).value;
+        }
     
         return function(){
         console.log("YEAH");
+        const name = getIdValue("name");
+        const feet = getIdValue("feet");
+        const inches = getIdValue("inches");
+        const weight = getIdValue("weight");
+        const diet = getIdValue("diet");
+        const totalHeight =+ inches + (feet*12);
+        console.log(name);
+        console.log(totalHeight);
+        console.log(weight);
+        console.log(diet);
+
         }
         
     })());
