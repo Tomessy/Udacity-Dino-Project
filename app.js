@@ -1,3 +1,4 @@
+//Array of dinos
 const dinos = [
 	{
 		species: "Triceratops",
@@ -84,20 +85,23 @@ function Dino(species, weight, height, diet, where, when, fact) {
 	this.fact = fact;
 }
 
+//makes an empty array to push the Dino objects to in the next part
 const dinoArr = [];
-// Create Dino Objects
+
+// Create Dino Objects and pushes them into the Dino Array
 dinos.forEach((dino) => {
 	const { species, weight, height, diet, where, when, fact } = dino;
 	const dinoObj = new Dino(species, weight, height, diet, where, when, fact);
 	dinoArr.push(dinoObj);
 });
 
-// Create Human Object
+// Create empty Human Object
 const human = {};
 
-// Use IIFE to get human data from form
+// Gets button and stores it in a var named btn
 const btn = document.getElementById("btn");
 
+//on a click it executes the rest of the code
 btn.addEventListener(
 	"click",
 	(function () {
@@ -106,21 +110,22 @@ btn.addEventListener(
 		}
 
 		return function () {
+			//assigns form data to consts
 			const name = getIdValue("name");
 			const feet = getIdValue("feet");
 			const inches = getIdValue("inches");
 			const weight = getIdValue("weight");
 			const diet = getIdValue("diet");
+			//finds the totalHeight in inches
 			const totalHeight = +inches + feet * 12;
 
+			//adds name, totalHeight, weight, and diet to the human object
 			human.name = name;
 			human.totalHeight = totalHeight;
 			human.weight = weight;
 			human.diet = diet;
 
-			// Create Dino Compare Method 1
-			// NOTE: Weight in JSON file is in lbs, height in inches.
-
+			//makes the weight compare function
 			function weightCompare(DinoWeight, DinoName) {
 				if (DinoWeight < human.weight) {
 					return `${DinoName} weighs less then ${name}`;
@@ -131,8 +136,7 @@ btn.addEventListener(
 				}
 			}
 
-			// Create Dino Compare Method 2
-			// NOTE: Weight in JSON file is in lbs, height in inches.
+			// makes the height compare function
 
 			function heightCompare(DinoHeight, DinoName) {
 				if (DinoHeight < human.totalHeight) {
@@ -144,8 +148,7 @@ btn.addEventListener(
 				}
 			}
 
-			// Create Dino Compare Method 3
-			// NOTE: Weight in JSON file is in lbs, height in inches.
+			// makes the diet compare function
 
 			function dietCompare(DinoDiet, DinoName) {
 				if (DinoDiet === human.diet) {
@@ -155,15 +158,20 @@ btn.addEventListener(
 				}
 			}
 
+			//gets the grid element and assigns it to the const grid
 			const grid = document.getElementById("grid");
 
+			//for each dino in the dino Array do the following
 			dinoArr.forEach((dino) => {
 				function findFact() {
+					// if pigeon return the standard fact.
 					if (dino.species === "Pigeon") {
 						return dino.fact;
 					}
 
+					//if not a pigeon get a random number between 0 and 5
 					const number = Math.floor(Math.random() * 6);
+					//depending what number it is depends on the fact it will return to be displayed
 					switch (number) {
 						case 0:
 							return dino.fact;
@@ -188,39 +196,49 @@ btn.addEventListener(
 							break;
 					}
 				}
-
+				//creates the tile and its children
 				const tile = document.createElement("div");
 				const species = document.createElement("h3");
 				const fact = document.createElement("p");
 				const img = document.createElement("img");
 
+				//adds text to species. Calls findFact function and displays what is returned. Adds the src attribute to the image based on the dino
 				species.textContent = dino.species;
 				fact.textContent = findFact();
 				img.src = `./images/${dino.species}.png`;
 
+				//adds the grid-item class to tile
 				tile.setAttribute("class", "grid-item");
 
+				//appends species fact and img as children to tile
 				tile.append(species);
 				tile.append(fact);
 				tile.append(img);
 
+				//adds tile to the grid
 				grid.append(tile);
 			});
 
+			//creates the human tile with name and image tags as well
 			const humanTile = document.createElement("Div");
 			const humanName = document.createElement("h3");
 			const humanImg = document.createElement("img");
 
+			//makes the humanName content = to the name given on the form and sets the human image src property
 			humanName.textContent = name;
 			humanImg.src = `./images/human.png`;
 
+			//adds the grid-item class to the human tile
 			humanTile.setAttribute("class", "grid-item");
 
+			//makes humanName and humanImg children of the humanTile
 			humanTile.append(humanName);
 			humanTile.append(humanImg);
 
+			//insets into the middle of the grid
 			grid.insertBefore(humanTile, grid.childNodes[4]);
 
+			// grabs form then removes it from the dom.
 			const form = document.getElementById("dino-compare");
 			form.remove();
 		};
