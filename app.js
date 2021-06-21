@@ -56,10 +56,10 @@
         // Create Dino Compare Method 1
         // NOTE: Weight in JSON file is in lbs, height in inches. 
         
-            function weightCompare(DinoWeight, HumanWeight, DinoName){
-                if(DinoWeight < HumanWeight){
+            function weightCompare(DinoWeight, DinoName){
+                if(DinoWeight < human.weight){
                     return `${DinoName} weighs less then ${name}`
-                } else if( DinoWeight > HumanWeight){
+                } else if( DinoWeight > human.weight){
                     return `${name} weighs less then ${DinoName}`
                 } else {
                     return `${name} weighs the same as a(n) ${DinoName}`
@@ -70,12 +70,12 @@
         // Create Dino Compare Method 2
         // NOTE: Weight in JSON file is in lbs, height in inches.
 
-            function heightCompare(DinoHeight, HumanHeight, DinoName){
-                if(DinoHeight < HumanHeight){
+            function heightCompare(DinoHeight, DinoName){
+                if(DinoHeight < human.totalHeight){
                     return `${DinoName} is shorter then ${name}`
-                } else if(DinoHeight > HumanHeight){
+                } else if(DinoHeight > human.totalHeight){
                     return `${name} is shorter then ${DinoName}`
-                } else {
+                } else if(DinoHeight === human.totalHeight){
                     return `${name} and ${DinoName} are the same height`
                 }
             }
@@ -85,24 +85,53 @@
         // NOTE: Weight in JSON file is in lbs, height in inches.
     
 
-            function dietCompare(DinoDiet, HumanDiet, DinoName){
-                if(DinoDiet === HumanDiet){
+            function dietCompare(DinoDiet, DinoName){
+                if(DinoDiet === human.diet){
                     return `${name} and the ${DinoName} have the same diet`
                 } else {
-                    return `${name} is a(n) ${HumanDiet} and the ${DinoName} is a(n) ${DinoDiet}`
+                    return `${name} is a(n) ${human.diet} and the ${DinoName} is a(n) ${DinoDiet}`
                 }
             }
         
         const grid = document.getElementById("grid");
 
         dinoArr.forEach((dino)=>{
+
+            function findFact() {
+                if(dino.species === "Pigeon"){
+                    return dino.fact;
+                } 
+                console.log(dino.height);
+                console.log("human height = " + human.totalHeight)
+                console.log(dino.height > human.height);
+
+                const number = Math.floor(Math.random() * 3);
+                switch (number) {
+                    case 0:
+                        return dino.fact;
+                    case 1:
+                        return weightCompare(dino.weight, dino.species);
+                    case 2:
+                        return heightCompare(dino.height, dino.species);
+                    case 3:
+                        return dietCompare(dino.diet, dino.species);
+                    default:
+                        break;
+                }
+            }
+
+
+
+
+
             const tile = document.createElement("div");
             const species = document.createElement("h3");
             const fact = document.createElement("p");
             const img = document.createElement("img");
 
             species.textContent = dino.species;
-            fact.textContent = dino.fact;
+            console.log(findFact())
+            fact.textContent = findFact();
             img.src = `./images/${dino.species}.png`
 
             tile.setAttribute("class", "grid-item")
